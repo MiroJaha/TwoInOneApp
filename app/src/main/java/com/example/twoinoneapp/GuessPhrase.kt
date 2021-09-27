@@ -77,9 +77,9 @@ class GuessPhrase : AppCompatActivity() {
     }
 
 
-    private fun show(str:ArrayList<String>,check:Int){
+    private fun show(str:ArrayList<String>){
 
-        myRV.adapter = RecyclerViewAdapterPhrase(str,check)
+        myRV.adapter = RecyclerViewAdapterPhrase(str)
         myRV.layoutManager = LinearLayoutManager(this)
         if(str.size!=0)
             myRV.smoothScrollToPosition(str.size - 1)
@@ -193,13 +193,13 @@ class GuessPhrase : AppCompatActivity() {
                     saveNewChar()
                     if(phrase.contains(charEntry.text.toString().uppercase())) {
                         list.add("You Guessed ${charEntry.text.toString().uppercase()} Correct")
-                        show(list, Color.GREEN)
+                        show(list)
                     }
                     else{
                         countGussiesChar--
                         list.add("You Guessed ${charEntry.text.toString().uppercase()} Wrong\n" +
                                 "$countGussiesChar Character Guesses Remaining")
-                        show(list, Color.RED)
+                        show(list)
 
                     }
                     noRepeat.add(charEntry.text.toString().uppercase())
@@ -230,7 +230,7 @@ class GuessPhrase : AppCompatActivity() {
                 var index=0
                 if (phrase == phraseEntry.text.toString().uppercase()) {
                     list.add("You Guessed ${phraseEntry.text.toString().uppercase()} Correct")
-                    show(list, Color.GREEN)
+                    show(list)
                     for(i in phrase)
                         stars[index++]=i
                 }
@@ -238,7 +238,7 @@ class GuessPhrase : AppCompatActivity() {
                     countGussiesPhrase--
                     list.add("You Guessed ${phraseEntry.text.toString().uppercase()} Wrong\n" +
                             "$countGussiesPhrase Phrase Guesses Remaining")
-                    show(list, Color.RED)
+                    show(list)
 
                 }
                 phraseEntry.text=null

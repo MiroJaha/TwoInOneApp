@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -37,7 +38,7 @@ class NumberGame : AppCompatActivity(){
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val item1 : MenuItem = menu!!.getItem(0)
-        val item2 : MenuItem = menu!!.getItem(1)
+        val item2 : MenuItem = menu.getItem(1)
         item1.title="NEW GAME"
         item2.title="GUESS THE PHRASE"
         return super.onPrepareOptionsMenu(menu)
@@ -78,14 +79,6 @@ class NumberGame : AppCompatActivity(){
     }
 
 
-    private fun show(str:ArrayList<String>){
-        myRV.adapter = RecyclerViewAdapterNumber(str)
-        myRV.layoutManager = LinearLayoutManager(this)
-        if(str.size!=0)
-            myRV.smoothScrollToPosition(str.size-1)
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.numbergame)
@@ -97,6 +90,9 @@ class NumberGame : AppCompatActivity(){
         button=findViewById(R.id.BGuss)
         entry=findViewById(R.id.Entry)
         list= arrayListOf()
+
+        myRV.adapter = RecyclerViewAdapterNumber(list)
+        myRV.layoutManager = LinearLayoutManager(this)
 
         button.setOnClickListener {
             try {
@@ -117,7 +113,8 @@ class NumberGame : AppCompatActivity(){
                                     "You Have $countGussies Gussies Left")
                     }
 
-                    show(list)
+                    myRV.adapter?.notifyDataSetChanged()
+                    myRV.scrollToPosition(list.size-1)
 
                     entry.text = null
                 }

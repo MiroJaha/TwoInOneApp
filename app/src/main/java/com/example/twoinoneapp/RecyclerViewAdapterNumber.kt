@@ -1,5 +1,6 @@
 package com.example.twoinoneapp
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,13 @@ class RecyclerViewAdapterNumber (private val answers:List<String>): RecyclerView
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val answer=answers[position]
 
-        holder.itemView.apply { tvGussies.text=answer }
+        holder.itemView.apply {
+            tvGussies.text=answer
+            if(answer.startsWith("Sorry"))
+                tvGussies.setTextColor(Color.RED)
+            else
+                tvGussies.setTextColor(Color.GREEN)
+        }
     }
 
     override fun getItemCount(): Int {
